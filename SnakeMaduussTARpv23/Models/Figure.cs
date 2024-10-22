@@ -18,7 +18,7 @@ namespace SnakeMaduussTARpv23.Models
             }
         }
 
-        internal bool IsHit(Figure figure)
+        public bool IsHit(Figure figure)
         {
             foreach (var p in pList)
             {
@@ -28,7 +28,7 @@ namespace SnakeMaduussTARpv23.Models
             return false;
         }
 
-        private bool IsHit(Point point)
+        public bool IsHit(Point point)
         {
             foreach (var p in pList)
             {

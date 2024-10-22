@@ -130,7 +130,7 @@ namespace SnakeMaduussTARpv23.Game
         private void ShowLeaderboard()
         {
             Console.Clear();
-            string filePath = @"..\..\..\Text.txt";
+            string filePath = @"Text.txt";
 
             if (File.Exists(filePath))
             {

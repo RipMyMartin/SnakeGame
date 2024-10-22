@@ -10,7 +10,7 @@ namespace SnakeMaduussTARpv23.Models
     {
         public int x;
         public int y;
-        public char sym;
+        public char sym; 
 
         public Point()
         {

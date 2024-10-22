@@ -78,5 +78,9 @@ namespace SnakeMaduussTARpv23.Models
             else
                 return false;
         }
+        public List<Point> GetPoints()
+        {
+            return pList;
+        }
     }
 }

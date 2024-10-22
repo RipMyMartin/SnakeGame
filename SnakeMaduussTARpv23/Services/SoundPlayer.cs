@@ -11,15 +11,29 @@ namespace SnakeMaduussTARpv23.Services
 
         public void Play(string filePath)
         {
-            _waveOutEvent = new WaveOutEvent();
-            _audioFileReader = new AudioFileReader(filePath);
-            _waveOutEvent.Init(_audioFileReader);
-            _waveOutEvent.Play();
-
-            _waveOutEvent.PlaybackStopped += (sender, args) =>
+            if (string.IsNullOrWhiteSpace(filePath))
             {
-                Dispose();
-            };
+                throw new ArgumentException("File path cannot be null or empty.", nameof(filePath));
+            }
+
+            try
+            {
+                _waveOutEvent = new WaveOutEvent();
+                _audioFileReader = new AudioFileReader(filePath);
+                _waveOutEvent.Init(_audioFileReader);
+                _waveOutEvent.Play();
+
+                _waveOutEvent.PlaybackStopped += (sender, args) =>
+                {
+                    Dispose();
+                };
+            }
+            catch (Exception ex)
+            {
+                // Обработка исключений, связанных с воспроизведением
+                Console.WriteLine($"Error playing sound: {ex.Message}");
+                Dispose(); // Освобождаем ресурсы, если произошла ошибка
+            }
         }
 
         public void PlayAsync(string filePath)
@@ -29,8 +43,18 @@ namespace SnakeMaduussTARpv23.Services
 
         public void Dispose()
         {
-            _waveOutEvent?.Dispose();
-            _audioFileReader?.Dispose();
+            if (_waveOutEvent != null)
+            {
+                _waveOutEvent.Stop();
+                _waveOutEvent.Dispose();
+                _waveOutEvent = null;
+            }
+
+            if (_audioFileReader != null)
+            {
+                _audioFileReader.Dispose();
+                _audioFileReader = null;
+            }
         }
     }
 }
